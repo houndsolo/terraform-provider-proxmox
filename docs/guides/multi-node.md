@@ -3,7 +3,7 @@ layout: page
 page_title: "Multi-Node Cluster Management"
 subcategory: Guides
 description: |-
-    Managing resources across multiple nodes in a Proxmox VE cluster.
+  Managing resources across multiple nodes in a Proxmox VE cluster.
 ---
 
 # Multi-Node Cluster Management
@@ -134,7 +134,7 @@ resource "proxmox_virtual_environment_download_file" "ubuntu_image" {
 }
 ```
 
-Node-scoped resources include: `download_file`, `file`, `oci_image`, `certificate`, `dns`, `hosts`, `time`, `network_linux_bridge`, and `network_linux_vlan`. The `apt_repository` and `apt_standard_repository` resources are also node-scoped but use `node` (not `node_name`) as their attribute name.
+Node-scoped resources include: `download_file`, `file`, `oci_image`, `certificate`, `dns`, `hosts`, `time`, `network_linux_bridge`, `network_linux_eth`, and `network_linux_vlan`. The `apt_repository` and `apt_standard_repository` resources are also node-scoped but use `node` (not `node_name`) as their attribute name.
 
 -> **Tip:** If you use shared storage (NFS, Ceph, GlusterFS), a file downloaded to one node is accessible from all nodes. You only need one `download_file` resource per shared datastore, not per node.
 
