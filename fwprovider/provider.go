@@ -598,6 +598,7 @@ func (p *proxmoxProvider) Resources(_ context.Context) []func() resource.Resourc
 		metrics.NewMetricsServerResource,
 		metrics.NewMetricsServerShortResource,
 		network.NewLinuxBondResource,
+		network.NewLinuxEthResource,
 		network.NewLinuxBridgeResource,
 		network.NewShortLinuxBridgeResource,
 		network.NewLinuxVLANResource,
