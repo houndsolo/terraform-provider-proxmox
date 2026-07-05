@@ -141,12 +141,23 @@ Acceptance tests run against a real Proxmox instance and verify the provider's f
    PROXMOX_VE_ACC_IFACE_NAME="enp1s0"
    ```
 
-  Some tests require multi node cluster and a ZFS datastore to run. To include these (otherwise skipped) tests add additional configuration corresponding to the cluster.
+Some tests require multi node cluster, a ZFS datastore and a spare disk to run. To include these (otherwise skipped) tests add additional configuration corresponding to the cluster.
 
-  ```env
-  PROXMOX_VE_ACC_NODE_2_NAME="pve2"
-  PROXMOX_VE_ACC_ZFS_DATASTORE_ID="zfs"
-  ```
+```env
+PROXMOX_VE_ACC_NODE_2_NAME="pve2"
+PROXMOX_VE_ACC_ZFS_DATASTORE_ID="zfs"
+PROXMOX_VE_ACC_ZFS_DISK="/dev/sdb"  # spare disk for proxmox_node_disk_zfs tests — will be fully wiped
+```
+
+> [!NOTE]
+>
+> **Non-root SSH user — snippets directory permissions.** The `upload_mode = "sftp"` cases in
+> `TestAccResourceFile` write directly over SFTP, which cannot elevate via `sudo` (unlike the default
+> `stream` mode). If `PROXMOX_VE_SSH_USERNAME` is a non-root user (e.g. `terraform`), that user needs
+> direct write access to the snippets directory (`/var/lib/vz/snippets` for the `local` datastore),
+> including the ability to overwrite files created there by root — for example via a default ACL
+> (`setfacl -d -m u:<user>:rwx`). Running acceptance tests as `root` (the default in the example above)
+> avoids this requirement.
 
 #### Running acceptance tests
 
@@ -222,12 +233,12 @@ New resources and data sources **must** be implemented using the Terraform Plugi
 
 See [docs/adr/reference-examples.md](docs/adr/reference-examples.md) for annotated walkthroughs and a new-resource checklist. Quick summary:
 
-| Complexity | Reference | When to use |
-| ---------- | --------- | ----------- |
-| Basic CRUD | SDN VNet (`fwprovider/cluster/sdn/vnet/`) | Start here for any new resource |
-| Many optional fields | Replication (`fwprovider/cluster/replication/`) | Split create/update, `CheckDelete`, `attribute.*PtrFromValue` |
-| Sensitive attributes | Metrics Server (`fwprovider/cluster/metrics/`) | Sensitive fields, bool-to-int conversion |
-| Cross-field validation | ACL (`fwprovider/access/`) | `ConfigValidators`, custom import ID parsing |
+| Complexity             | Reference                                       | When to use                                                   |
+| ---------------------- | ----------------------------------------------- | ------------------------------------------------------------- |
+| Basic CRUD             | SDN VNet (`fwprovider/cluster/sdn/vnet/`)       | Start here for any new resource                               |
+| Many optional fields   | Replication (`fwprovider/cluster/replication/`) | Split create/update, `CheckDelete`, `attribute.*PtrFromValue` |
+| Sensitive attributes   | Metrics Server (`fwprovider/cluster/metrics/`)  | Sensitive fields, bool-to-int conversion                      |
+| Cross-field validation | ACL (`fwprovider/access/`)                      | `ConfigValidators`, custom import ID parsing                  |
 
 Architecture decisions are documented in [docs/adr/](docs/adr/README.md).
 
@@ -247,10 +258,10 @@ Documentation for **SDK** resources (`proxmoxtf/`) is **manually maintained** �
 
 **Description vs MarkdownDescription:**
 
-| Field                   | Format     | Used for                                      |
-| ----------------------- | ---------- | --------------------------------------------- |
-| `Description`           | Plain text | CLI help, simple tooltips                     |
-| `MarkdownDescription`   | Markdown   | Registry docs, rich formatting                |
+| Field                 | Format     | Used for                       |
+| --------------------- | ---------- | ------------------------------ |
+| `Description`         | Plain text | CLI help, simple tooltips      |
+| `MarkdownDescription` | Markdown   | Registry docs, rich formatting |
 
 - If only one is set, it's used for both purposes.
 - Use `MarkdownDescription` when you need inline code (backticks), links, or HTML (`<br>`).
@@ -384,7 +395,7 @@ Guidelines:
 
 > [!WARNING]
 > PRs without proof of work may be rejected. Trivial changes (typo fixes, documentation-only updates that don't affect code behavior) are exempt from this requirement.
-If you use AI assistants, they are expected to generate a proof of work document as a `.dev/*_REPORT.md` file. Review this file and use its contents when completing the PR template.
+> If you use AI assistants, they are expected to generate a proof of work document as a `.dev/*_REPORT.md` file. Review this file and use its contents when completing the PR template.
 
 ### How to submit
 

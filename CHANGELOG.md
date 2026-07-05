@@ -1,5 +1,62 @@
 # Changelog
 
+## [0.111.1](https://github.com/bpg/terraform-provider-proxmox/compare/v0.111.0...v0.111.1) (2026-07-03)
+
+
+### Bug Fixes
+
+* **cluster:** handle `influx_token` write-only status in `metrics_server` ([#2972](https://github.com/bpg/terraform-provider-proxmox/issues/2972)) ([65831bb](https://github.com/bpg/terraform-provider-proxmox/commit/65831bb78abe518998cf298b74212bf3eb94c45e))
+* **hwmapping:** percent-encode comments to survive PVE round-trip ([#2980](https://github.com/bpg/terraform-provider-proxmox/issues/2980)) ([dcc0c36](https://github.com/bpg/terraform-provider-proxmox/commit/dcc0c3601e05a7d357c35e02f76396a4df8a3297))
+* **vm:** persist `boot_order` on first apply when cloning ([#2969](https://github.com/bpg/terraform-provider-proxmox/issues/2969)) ([505cb8d](https://github.com/bpg/terraform-provider-proxmox/commit/505cb8d2f78d80e59034ff0112aaf3f5effad909))
+
+
+### Miscellaneous
+
+* **ci:** update actions/attest-build-provenance digest (a2bbfa2 → 0f67c3f) ([#2976](https://github.com/bpg/terraform-provider-proxmox/issues/2976)) ([1a3c1b1](https://github.com/bpg/terraform-provider-proxmox/commit/1a3c1b1071ec5d84cd7d9780ab4a1c018033ea69))
+* **ci:** update actions/setup-go digest (4a36011 → 924ae3a) ([#2970](https://github.com/bpg/terraform-provider-proxmox/issues/2970)) ([41f4c40](https://github.com/bpg/terraform-provider-proxmox/commit/41f4c407b8a2fe75979ddddaa79330d9a731948a))
+* **ci:** update dorny/paths-filter action (v4.0.1 → v4.0.2) ([#2979](https://github.com/bpg/terraform-provider-proxmox/issues/2979)) ([90d03f7](https://github.com/bpg/terraform-provider-proxmox/commit/90d03f7015e5045dcabae06d6b07b2e898ff2d98))
+* **ci:** update golangci/golangci-lint-action digest (82606bf → ba0d7d2) ([#2977](https://github.com/bpg/terraform-provider-proxmox/issues/2977)) ([2cc0206](https://github.com/bpg/terraform-provider-proxmox/commit/2cc0206bbd2a1588215a69d6085b7edb9ad77db7))
+* **deps:** update image golang (32c0e6e → f96cc55) ([#2978](https://github.com/bpg/terraform-provider-proxmox/issues/2978)) ([95d97fe](https://github.com/bpg/terraform-provider-proxmox/commit/95d97fea630f3a55db06451931ea2786afb00895))
+* **deps:** update image golang (792443b → 32c0e6e) ([#2967](https://github.com/bpg/terraform-provider-proxmox/issues/2967)) ([efd1e95](https://github.com/bpg/terraform-provider-proxmox/commit/efd1e95b10efdf13df686495b1738a0570b65e82))
+
+## [0.111.0](https://github.com/bpg/terraform-provider-proxmox/compare/v0.110.0...v0.111.0) (2026-06-23)
+
+
+### Features
+
+* **acme:** add write-only data_wo argument to proxmox_acme_dns_plugin ([#2962](https://github.com/bpg/terraform-provider-proxmox/issues/2962)) ([cd4ecd7](https://github.com/bpg/terraform-provider-proxmox/commit/cd4ecd7156f6ff6df610a79c586e5d15eb6da8a6))
+* **disk:** add support for ZFS disk/zpool creation with `proxmox_node_disk_zfs` ([#2952](https://github.com/bpg/terraform-provider-proxmox/issues/2952)) ([087b1d0](https://github.com/bpg/terraform-provider-proxmox/commit/087b1d0a7a034d1935a0f9d976cd43806483dbfa))
+* **openid:** add write-only client_key_wo to proxmox_realm_openid ([#2964](https://github.com/bpg/terraform-provider-proxmox/issues/2964)) ([0ef7bdc](https://github.com/bpg/terraform-provider-proxmox/commit/0ef7bdcc258cf01e05f2d5609356171641eb02f5))
+
+
+### Miscellaneous
+
+* **ci:** Update actions/checkout action (v6.0.3 → v7.0.0) ([#2958](https://github.com/bpg/terraform-provider-proxmox/issues/2958)) ([0a5bf04](https://github.com/bpg/terraform-provider-proxmox/commit/0a5bf04053200e99446409dd813ee66ad4b19163))
+* **docs:** update README.md ([5fd272a](https://github.com/bpg/terraform-provider-proxmox/commit/5fd272a4d6439a6f33be1fecef9b0e1080d5d407))
+
+## [0.110.0](https://github.com/bpg/terraform-provider-proxmox/compare/v0.109.0...v0.110.0) (2026-06-18)
+
+
+### Features
+
+* **cluster:** add dynamic crs ha scheduler and auto-rebalance options ([#2940](https://github.com/bpg/terraform-provider-proxmox/issues/2940)) ([1b14b39](https://github.com/bpg/terraform-provider-proxmox/commit/1b14b39de0c174cf9b9f11bf9322b2ab61b64cee))
+* **file:** add ImportState to `proxmox_virtual_environment_download_file` ([#2938](https://github.com/bpg/terraform-provider-proxmox/issues/2938)) ([e7a1032](https://github.com/bpg/terraform-provider-proxmox/commit/e7a1032ca8340597c027fe3ea0b479035b3409a3))
+* **storage:** add `options` parameter for proxmox_storage_cifs resource ([#2947](https://github.com/bpg/terraform-provider-proxmox/issues/2947)) ([e152990](https://github.com/bpg/terraform-provider-proxmox/commit/e152990cdea28898c0055d77fd06ee356d162d97))
+* **storage:** add create_base_path and create_subdirs base options for cifs,nfs,dir storage resources ([#2949](https://github.com/bpg/terraform-provider-proxmox/issues/2949)) ([c1262fd](https://github.com/bpg/terraform-provider-proxmox/commit/c1262fd3c73dd326de42b67a459d9b86f70b8a34))
+
+
+### Bug Fixes
+
+* **core:** surface underlying error on SSH file transfer failure ([#2956](https://github.com/bpg/terraform-provider-proxmox/issues/2956)) ([45d73a6](https://github.com/bpg/terraform-provider-proxmox/commit/45d73a6e3511de6ea82d8e97b6bc9a0ac7cc7dab))
+* **node:** accept string-typed startall-onboot-delay in node config ([#2957](https://github.com/bpg/terraform-provider-proxmox/issues/2957)) ([87b7992](https://github.com/bpg/terraform-provider-proxmox/commit/87b7992cbb73ddf28cf532e528601ec2ee5b9a34))
+
+
+### Miscellaneous
+
+* **deps:** update image golang (68cb6d6 → 87a41d2) ([#2941](https://github.com/bpg/terraform-provider-proxmox/issues/2941)) ([b5dafd8](https://github.com/bpg/terraform-provider-proxmox/commit/b5dafd84c96e45c6ff573faf8339f1bc4d82c731))
+* **deps:** update module golang.org/x/crypto (v0.52.0 → v0.53.0) ([#2942](https://github.com/bpg/terraform-provider-proxmox/issues/2942)) ([5bedef1](https://github.com/bpg/terraform-provider-proxmox/commit/5bedef142033fb8112dca06fcd983931f6a7daa1))
+* **deps:** update module golang.org/x/net (v0.55.0 → v0.56.0) ([#2943](https://github.com/bpg/terraform-provider-proxmox/issues/2943)) ([804860f](https://github.com/bpg/terraform-provider-proxmox/commit/804860f6252a27d9d032517235589c0283d18cb8))
+
 ## [0.109.0](https://github.com/bpg/terraform-provider-proxmox/compare/v0.108.0...v0.109.0) (2026-06-06)
 
 
